@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    
+    <title>Messagebox</title>
+    
+    <%= stylesheet_link_tag :all %>
+    <%= javascript_include_tag :defaults %>
+    <%= csrf_meta_tag %>
+
+    <%= yield :head %>
+  
+  </head>
+  
+  <body>
+    
+    <!-- Layout 3 -->
+    <div class="ez-wr">
+      
+      <div class="ez-box">
+	<%= render :partial => "shared/user_bar" %>
+      </div>
+      
+      <div class="ez-box header">
+	<h1 style="padding-top: 20px;">
+	  Azri's Message Box<sup> <span style="font-size: 8px;">&#169; 2010 Azri</span> </sup>
+	</h1>
+      </div>
+      
+      <div class="ez-box">
+	<% flash.each do |key, msg| %>
+	<%= content_tag :p, msg, :class => "flash #{key}" %>
+	<% end %>
+      </div>
+      
+      <br /><br />
+      
+      <!-- Module 3A -->
+      <div class="ez-wr">
+	<%= yield %>
+      </div>
+      
+      <div class="ez-box footer">
+	<div style="padding-top: 20px;">
+	</div>
+      </div>
+      
+    </div>
+    
+  </body>
+  
+</html>

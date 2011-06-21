@@ -1,0 +1,18 @@
+<% content_for :head do %>
+  <script>
+    var AUTH = "<%= form_authenticity_token %>";
+  </script>
+<% end %>
+
+<h3>Message thread #<%= @root_id %></h3><br />
+
+<% for message in @thread %>  <br />
+<div class="message_box" id="message_<%=message.id%>">
+  <%= render :partial => "message", :locals => { :message => message } %>
+</div>
+<br /> <br />
+<% end %>
+
+<br /> <br />
+
+<%= render :partial => "reply" %>

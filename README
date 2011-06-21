@@ -1,0 +1,43 @@
+Messagbox is the demo app for azmessaging plugin
+
+Dependencies
+  Requires the following plugins:
+    a) awesome_nested_set
+    b) AASM
+
+To setup a message box for a user you should have the following migrations.
+
+ create_table :messages do |t|
+      t.integer :author_id
+      t.string :subject
+      t.text :body
+      t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
+      t.integer :root_id
+      t.string :cached_recipients_list
+      t.timestamps
+ end
+
+ create_table :message_copies do |t|
+      t.integer :recipient_id
+      t.integer :message_id
+      t.integer :folder_id
+      t.string  :status
+      t.timestamps
+ end
+
+ create_table :folders do |t|
+      t.integer :user_id
+      t.string :name
+      t.timestamps
+ end
+
+Once the migrations are up and running the application will have following methods:
+ * Index 
+ This def poses the code which showcases the current user inbox/outbox along with the message status.
+  
+ * Show
+ This def poses the code which displays the a parituclar method
+
+The application also has actions like reply, markasread and markasunread.

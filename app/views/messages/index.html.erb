@@ -1,0 +1,42 @@
+<h1>Messages</h1>
+
+<div id="options_bar">
+  <%= link_to("Incoming", messages_path + "?folder=inbox") %> &nbsp;
+  <%= link_to("Sent", messages_path + "?folder=outbox") %> &nbsp;
+</div>
+
+<div>
+  <table>
+    <tr>
+      <th colspan="5">
+	<%= will_paginate @messages %>     
+      </th>
+    </tr>
+    <tr>
+      <th>Sender</th>
+      <th>Recipient</th>
+      <th>Subject</th>
+      <th><%= raw(sortable_column('received', @order[:received])) %></th>
+      <th><%= raw(sortable_column('status', @order[:status] || 'desc')) %></th>
+    </tr>
+    
+    <% for message in @messages %>
+    <tr>
+      <td><%= message.author.email %></td>
+      <td><%= message.cached_recipients %></td>
+      <td><%= message.subject %></td>
+      <td><%= time_ago_in_words(message.created_at) %> ago</td>
+      <td><%= message.status.capitalize! %> </td>
+    </tr>
+    <% end %>
+    <tr>
+      <th colspan="5">
+	<%= will_paginate @messages %>     
+      </th>
+    </tr>
+  </table>
+</div>
+
+<br />
+
+<%= link_to 'New Message', messages_path+'/new' %>

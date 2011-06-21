@@ -1,0 +1,21 @@
+sqlite3:
+  adapter: sqlite3
+  database: awesome_nested_set.sqlite3.db
+sqlite3mem:
+  adapter: sqlite3
+  database: ":memory:"
+postgresql:
+  adapter: postgresql
+  username: postgres
+  password: postgres
+  database: awesome_nested_set_plugin_test
+  min_messages: ERROR
+mysql:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: messagebox_test
+  pool: 5
+  username: msgbox
+  password: letmein
+  socket: /var/run/mysqld/mysqld.sock

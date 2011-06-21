@@ -1,0 +1,36 @@
+<h1>Create a new Message</h1>
+
+<%= error_messages_for :message %>
+<%= form_for :message, :url => messages_path do |f| -%>
+
+<br />
+
+<div id="user_search">
+Search user by email:
+<%= text_field(:user, :email); -%>
+</div>
+
+<p><%= label_tag "recipient User(s)" -%><br/>
+<%= text_field :message, :to_users -%></p>
+
+<p><%= label_tag 'subject' -%><br/>
+<%= text_field :message, :subject -%></p>
+
+<div id="preview">
+<div id="preview_controls">
+ <input type="button" id="preview_hide_btn" value="Hide Preview">
+</div>
+<div id="preview_body"></div>
+</div>
+
+<p><%= label_tag 'Message Body' -%><br/>
+<%= text_area :message, :body, :class => "" -%></p>
+
+<%= check_box :message, :alert_email, { :checked => "checked" } -%> Notify activity via email <br />
+
+<p><input type="button" id="preview_show_btn" value="Preview"> &nbsp; <%= submit_tag 'Send' -%></p>
+<%- end -%>
+
+<br /> <br />
+
+<%= link_to 'Back', messages_path, :confirm => "Are you sure? The message will be lost!" -%>

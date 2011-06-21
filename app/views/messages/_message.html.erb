@@ -1,0 +1,21 @@
+<div class="header">
+  <% if message.status == "read" %>
+  <a href="#" onclick="ag_toggle('payload_<%=message.id%>'); return false;">
+    <%=h message.author.email %> &nbsp; said &nbsp; <%=h message.subject %>
+  </a>
+  <% elsif message.status == "unread" %>
+    <%=h message.author.email %> &nbsp; said &nbsp; <%=h message.subject %>
+  <% end %>
+</div>
+<div class="<%=message.status%>" id="payload_<%=message.id%>">
+  To: <%=h message.cached_recipients %> <br />
+  Sent: <%=h time_ago_in_words(message.created_at) %> ago <br />
+  Body: <%= message.body %> <br />
+  <div class="controls">
+    <% if message.status == "unread" %>
+      <%= link_to_function("mark as read", "mark_as_read(" + message.id.to_s + ")") %>
+    <% elsif message.status == "read" %>
+      <%= link_to_function("mark as unread", "mark_as_unread(" + message.id.to_s + ")")%>
+    <% end %>
+  </div>
+</div>

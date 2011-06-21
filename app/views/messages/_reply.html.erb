@@ -1,0 +1,46 @@
+<% content_for :head do %>
+  <script>
+    document.observe("dom:loaded", function() {
+      $("preview_show_btn").observe('click', msg_preview_show);
+      $("preview_hide_btn").observe('click', msg_preview_hide);
+      $("groups_list").observe('change', select_group);
+    });
+  </script>
+<% end %>
+
+<h1>Reply To Message</h1>
+
+Search user by email :
+<%=
+text_field_with_auto_complete(
+  :user, :email, {}, :url => formatted_dashboard_users_path(:js),
+  :method => :get, :param_name => 'search',
+  :after_update_element => 'function(f, e) { user_login_autocomplete(f, e) }');
+%>
+
+<%= error_messages_for :message %>
+<% form_for :message, :url => {:action => "reply", :controller => "messages"} do |f| -%>
+
+<p><%= label_tag "recipient User(s)" %><br/>
+<%= f.text_field :to_users %></p>
+
+<p><%= label_tag 'subject' %><br/>
+<%= f.text_field :subject %></p>
+
+<div id="preview">
+<div id="preview_controls">
+ <input type="button" id="preview_hide_btn" value="Hide Preview">
+</div>
+<div id="preview_body"></div>
+</div>
+
+<p><%= label_tag 'Message Body' %><br/>
+<%= f.text_area :body, :class => "" %></p>
+
+<p>
+ <%= hidden_field_tag "parent_msg", @parent_message_id %>
+</p>
+<%= check_box :message, :alert_email, :checked => email_alerts?(@root_id, current_user.id) %> Notify activity via email <br />
+
+<p><input type="button" id="preview_show_btn" value="Preview"> &nbsp; <%= submit_tag 'Reply' %></p>
+<% end -%>
